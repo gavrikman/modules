@@ -1,0 +1,4 @@
+services:
+  drupal.plugin.deposit:
+    class: Drupal\deposit\DepositManager
+    parent: default_plugin_manager
