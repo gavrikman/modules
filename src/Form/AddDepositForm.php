@@ -154,5 +154,7 @@ class AddDepositForm extends FormBase {
       $plugin = $this->deposit_plugin->createInstance('compound_percent:'.$bank);
       $plugin->returnDepositInfo($years, $bank, $depositAmount, $percentageType, $percentages);
     }
+    $form_state->setRedirect('deposit.deposit_list');
+
   }
 }
