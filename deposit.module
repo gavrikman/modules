@@ -1,1 +1,18 @@
 <?php
+/**
+ * Implements hook_theme().
+ * @param $existing
+ * @param $type
+ * @param $theme
+ * @param $path
+ * @return array
+ */
+function deposit_theme($existing, $type, $theme, $path) {
+  return [
+    'results' => [
+      'variables' => [
+        'results' => NULL,
+      ],
+    ],
+  ];
+}

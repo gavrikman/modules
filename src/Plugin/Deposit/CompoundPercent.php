@@ -8,20 +8,21 @@ use Drupal\deposit\Annotation\DepositPlugin;
 use Drupal\deposit\DepositPluginBase;
 
 /**
- * @DepositPlugin
- * Class CompoundPercent
- * @package Drupal\deposit\Plugin\Deposit
+ * @DepositPlugin (
+ * id = "compound_percent",
+ * deriver = "Drupal\deposit\Derivative\DepositSimplePluginDerivative",
+ * )
  */
 class CompoundPercent extends DepositPluginBase {
   /**
    * @param int $years
    * @param float $percentages
-   * @param float $sum
+   * @param float $depositAmount
    * @return float|int|void
    */
-    public function calculatePercentages($years, $percentages, $sum) {
+    public function calculatePercentages($years, $depositAmount, $percentages ) {
       $timesInYear = 1;
-      $finalSum = $sum * pow((1 + ($percentages / 100) / $timesInYear), $timesInYear * $years);
+      $finalSum = $depositAmount * pow((1 + ($percentages / 100) / $timesInYear), $timesInYear * $years);
       return $finalSum;
     }
 

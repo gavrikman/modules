@@ -16,12 +16,12 @@ interface DepositPluginInterface extends PluginInspectionInterface {
    *
    * @param float $percentages
    *
-   * @param float $sum
+   * @param float $depositAmount
    *
    * calculate the percentages to deposit
    * @return float
    */
-  public function calculatePercentages();
+  public function calculatePercentages(int $years, float $percentages, float $depositAmount);
 
   /**
    * @param float $years

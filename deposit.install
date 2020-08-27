@@ -1,0 +1,15 @@
+<?php
+
+function deposit_schema() {
+
+    $schema['deposit'] = [
+      'fields' => [
+        'deposit_info' => [
+          'type' => 'varchar',
+          'length' => 1786,
+          'not null' => true,
+        ],
+      ],
+    ];
+return $schema;
+}

@@ -1,7 +1,15 @@
 derivative_deposit.add_deposit_form:
   path: '/deposit'
   defaults:
-    _controller: '\Drupal\deposit\Controller\DepositPluginController::description'
+    _form: '\Drupal\deposit\Form\AddDepositForm'
     _title: 'Choose the your deposit'
   requirements:
     _permission: 'access content'
+deposit.deposit_list:
+  path: '/deposit-list'
+  defaults:
+    _controller: '\Drupal\deposit\Controller\DepositPluginController::deposit_list'
+    _title: 'All created deposits'
+  requirements:
+    _permission: 'access content'
+

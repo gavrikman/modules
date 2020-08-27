@@ -2,8 +2,11 @@
 
 namespace Drupal\deposit\Plugin\Deposit;
 
+use Drupal\Core\Plugin\ContainerFactoryPluginInterface;
 use Drupal\deposit\Annotation\DepositPlugin;
 use Drupal\deposit\DepositPluginBase;
+use mysql_xdevapi\SqlStatementResult;
+use Symfony\Component\DependencyInjection\ContainerInterface;
 
 /**
  * @DepositPlugin (
@@ -11,21 +14,29 @@ use Drupal\deposit\DepositPluginBase;
  * deriver = "Drupal\deposit\Derivative\DepositSimplePluginDerivative",
  * )
  */
-class SimplePercentage extends DepositPluginBase {
+class SimplePercentage extends DepositPluginBase implements ContainerFactoryPluginInterface {
+
+
+  public static function create(ContainerInterface $container, array $configuration, $plugin_id, $plugin_definition) {
+    return new static(
+      $configuration,
+      $plugin_id,
+      $plugin_definition
+    );
+  }
 
   /**
    * @param int $years
    * @param float $percentages
-   * @param float $sum
+   * @param float $depositAmount
    * @return float|int|void
    */
-  public function calculatePercentages() {
-    $percentages = $this->getPluginDefinition()['bank_name'];
-/*    $percentages = $percentages / 100;
-    $forYear = $sum * $percentages;
+  public function calculatePercentages( $years, $depositAmount, $percentages) {
+    $percentages = $percentages / 100;
+    $forYear = $depositAmount * $percentages;
     $percentagesSum = $forYear * $years;
-    return $sum + $percentagesSum;*/
-    return $percentages;
+    return $depositAmount + $percentagesSum;
+
   }
 
   /**

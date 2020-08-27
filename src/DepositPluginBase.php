@@ -2,6 +2,7 @@
 namespace Drupal\deposit;
 
 use Drupal\Component\Plugin\PluginBase;
+use Drupal\Core\Database\Database;
 
 /**
  * Class DepositPluginBase
@@ -17,7 +18,13 @@ abstract class DepositPluginBase extends PluginBase implements DepositPluginInte
    return $this->pluginDefinition['id'];
   }
 
-  public function calculatePercentages() {
+  /**
+   * @param int $years
+   * @param float $depositAmount
+   * @param float $percentages
+   * @return float|void
+   */
+  public function calculatePercentages(int $years, float $depositAmount, float $percentages) {
 
   }
 
@@ -30,11 +37,15 @@ abstract class DepositPluginBase extends PluginBase implements DepositPluginInte
    * @return mixed|string
    */
   public function returnDepositInfo(float $years, string $bank, float $depositAmount, string $percentageType, float $percentages) {
-
-    return "Вы взяли депозит в $bank.
-    Первоначальный вклад $depositAmount под $percentageType, размер % = $percentages.
-    Ваш тип процента $percentageType. Время депозита $years г.
-    Ожидаемая сумма:" . $this->calculatePercentages();
+    $outPutInformation =  "Вы взяли депозит в $bank.
+    Первоначальный вклад $depositAmount под $percentageType % , размер % = $percentages.
+    Время депозита $years г.
+    Ожидаемая сумма:" . $this->calculatePercentages($years, $depositAmount, $percentages);
+    $dataBaseConnection =  Database::getConnection();
+    $dataBaseConnection->insert('deposit')->fields([
+      'deposit_info' => $outPutInformation,
+    ])->execute();
+    return $outPutInformation;
   }
 
 }
